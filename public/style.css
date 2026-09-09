@@ -1,0 +1,176 @@
+:root{
+  --bg: #0a0d14;
+  --panel: #131824;
+  --panel-2: #171d2c;
+  --line: #232b3d;
+  --text: #e8edf7;
+  --muted: #7c879c;
+  --cyan: #00d4ff;
+  --red: #ff3b5c;
+  --amber: #ffd23f;
+  --green: #7cff5e;
+  --purple: #c77dff;
+  --radius: 18px;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, #10233066, transparent),
+    radial-gradient(1200px 600px at 110% 10%, #2a0f2266, transparent),
+    var(--bg);
+  color:var(--text);
+  font-family:'Vazirmatn', Tahoma, sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+.screen{ display:none; min-height:100vh; }
+.screen.active{ display:flex; flex-direction:column; align-items:center; }
+
+/* -------------------- منو -------------------- */
+.menu-wrap{
+  width:100%; max-width:520px; margin:0 auto; padding:56px 20px 24px;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  flex:1;
+}
+.brand{ display:flex; align-items:center; gap:14px; justify-content:center; }
+.brand h1{
+  font-size:40px; font-weight:800; letter-spacing:-0.5px; margin:0;
+}
+.brand h1 span{ color:var(--cyan); }
+.brand-pill{
+  width:46px; height:20px; border-radius:999px; border:3px solid #000;
+}
+.brand-pill--cyan{ background:var(--cyan); box-shadow:0 0 18px #00d4ff88; }
+.brand-pill--red{ background:var(--red); box-shadow:0 0 18px #ff3b5c88; }
+.tagline{ color:var(--muted); margin:10px 0 30px; font-size:15px; }
+
+.card{
+  width:100%; background:var(--panel); border:1px solid var(--line);
+  border-radius:var(--radius); padding:24px; display:flex; flex-direction:column; gap:12px;
+}
+.field{ display:flex; flex-direction:column; gap:6px; text-align:right; }
+.field span{ font-size:13px; color:var(--muted); }
+.field input, .chat-form input{
+  background:var(--panel-2); border:1px solid var(--line); color:var(--text);
+  border-radius:12px; padding:12px 14px; font-family:inherit; font-size:15px; outline:none;
+}
+.field input:focus, .chat-form input:focus{ border-color:var(--cyan); }
+
+.btn{
+  border:none; border-radius:12px; padding:13px 18px; font-family:inherit;
+  font-size:15px; font-weight:700; cursor:pointer; transition:transform .12s ease, filter .12s ease;
+}
+.btn:active{ transform:scale(0.97); }
+.btn:disabled{ opacity:.4; cursor:not-allowed; }
+.btn-primary{ background:var(--cyan); color:#00202a; }
+.btn-primary:hover:not(:disabled){ filter:brightness(1.1); }
+.btn-secondary{ background:var(--panel-2); color:var(--text); border:1px solid var(--cyan); }
+.btn-ghost{ background:transparent; color:var(--text); border:1px solid var(--line); }
+.btn-danger{ color:var(--red); border-color:#ff3b5c55; }
+.btn-sm{ padding:10px 14px; font-size:13px; }
+
+.divider{ display:flex; align-items:center; gap:10px; color:var(--muted); font-size:13px; }
+.divider::before, .divider::after{ content:""; flex:1; height:1px; background:var(--line); }
+
+.minigame-teaser{ margin-top:34px; opacity:.9; }
+.minigame-teaser p{ color:var(--muted); font-size:13px; margin-bottom:8px; }
+.minigame-teaser small{ color:var(--muted); }
+canvas#dino-canvas-menu, canvas#dino-canvas-lobby{
+  background:var(--panel); border:1px solid var(--line); border-radius:12px; display:block; margin:0 auto;
+}
+.dino-wrap{ position:relative; display:inline-block; }
+.dino-start{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  background:var(--cyan); color:#00202a; border:none; border-radius:999px;
+  padding:10px 22px; font-family:inherit; font-weight:800; font-size:14px; cursor:pointer;
+  box-shadow:0 0 22px #00d4ff77; transition:transform .12s ease, filter .12s ease;
+}
+.dino-start:hover{ filter:brightness(1.1); }
+.dino-start:active{ transform:translate(-50%,-50%) scale(0.96); }
+.dino-start.hidden{ display:none; }
+
+.rgb-footer{
+  margin-top:auto; padding:22px 0 10px; font-weight:800; letter-spacing:3px; font-size:14px;
+  background:linear-gradient(90deg,#ff3b5c,#ffd23f,#7cff5e,#00d4ff,#c77dff,#ff3b5c);
+  background-size:300% auto;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  animation:rgbmove 4s linear infinite;
+}
+@keyframes rgbmove{ to{ background-position:300% center; } }
+
+/* -------------------- لابی اتاق -------------------- */
+.lobby-wrap{ width:100%; max-width:1000px; padding:24px 16px 40px; }
+.lobby-header{ display:flex; align-items:center; gap:14px; margin-bottom:20px; }
+.lobby-header .muted{ font-size:12px; color:var(--muted); }
+.room-code{ font-size:28px; font-weight:800; letter-spacing:6px; color:var(--amber); }
+.lobby-header button:last-child{ margin-inline-start:auto; }
+
+.lobby-grid{
+  display:grid; grid-template-columns:1.1fr 1fr; grid-template-areas:"players chat" "players mini";
+  gap:16px;
+}
+.players-panel{ grid-area:players; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; }
+.chat-panel{ grid-area:chat; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; display:flex; flex-direction:column; }
+.minigame-panel{ grid-area:mini; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; text-align:center; }
+.lobby-wrap h3{ margin:0 0 12px; font-size:15px; }
+
+.players-list{ display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+.player-row{
+  display:flex; align-items:center; gap:10px; background:var(--panel-2);
+  border:1px solid var(--line); border-radius:12px; padding:10px 12px;
+}
+.player-dot{ width:14px; height:14px; border-radius:50%; flex-shrink:0; }
+.player-row .pname{ font-weight:700; flex:1; }
+.player-row .ppos{ font-size:12px; color:var(--muted); }
+.player-row .crown{ font-size:14px; }
+.player-row .kick-btn{
+  background:none; border:1px solid #ff3b5c55; color:var(--red); border-radius:8px;
+  font-size:11px; padding:5px 9px; cursor:pointer; font-family:inherit;
+}
+.hint{ font-size:12px; color:var(--muted); margin-top:10px; }
+
+.chat-log{ flex:1; min-height:200px; max-height:280px; overflow-y:auto; display:flex; flex-direction:column; gap:6px; margin-bottom:10px; }
+.chat-msg{ font-size:13px; line-height:1.6; }
+.chat-msg .cname{ font-weight:700; }
+.chat-msg.system{ color:var(--muted); font-style:normal; }
+.chat-form{ display:flex; gap:8px; }
+.chat-form input{ flex:1; }
+
+/* -------------------- بازی -------------------- */
+.game-wrap{ width:100%; display:flex; flex-direction:column; align-items:center; padding:14px 10px 20px; }
+.hud{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:12px; }
+.hud-item{
+  display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--line);
+  border-radius:999px; padding:6px 14px; font-size:13px;
+}
+.hud-item.dead{ opacity:.35; text-decoration:line-through; }
+.hud-dot{ width:10px; height:10px; border-radius:50%; }
+.hud-powerups{ display:flex; gap:3px; font-size:12px; }
+
+.arena-holder{ position:relative; width:min(84vmin, 720px); aspect-ratio:1/1; }
+canvas#arena{ width:100%; height:100%; border-radius:16px; background:#05070c; display:block; touch-action:none; cursor: default; }
+.pointer-hint{
+  position:absolute; top:10px; left:50%; transform:translateX(-50%);
+  background:#000000cc; border:1px solid var(--cyan); color:var(--cyan);
+  font-size:12px; padding:6px 12px; border-radius:999px;
+}
+.controls-hint{ color:var(--muted); font-size:13px; margin-top:12px; }
+
+/* -------------------- پایان بازی -------------------- */
+.winner-title{ font-size:26px; margin:40px 0 26px; }
+
+/* -------------------- عمومی -------------------- */
+.hidden{ display:none !important; }
+.toast{
+  position:fixed; top:18px; left:50%; transform:translateX(-50%); z-index:50;
+  background:#1a1030; border:1px solid var(--red); color:#ffd9df;
+  padding:12px 20px; border-radius:12px; font-size:14px; box-shadow:0 8px 30px #0008;
+}
+
+@media (max-width:820px){
+  .lobby-grid{ grid-template-columns:1fr; grid-template-areas:"players" "chat" "mini"; }
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+<title>Brick Blast Online</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<meta name="theme-color" content="#0a0d14" />
+</head>
+<body>
+
+<div id="toast" class="toast hidden"></div>
+
+<!-- ===================== صفحه‌ی منوی اصلی ===================== -->
+<section id="screen-menu" class="screen active">
+  <div class="menu-wrap">
+    <div class="brand">
+      <div class="brand-pill brand-pill--cyan"></div>
+      <h1>Brick<span>Blast</span></h1>
+      <div class="brand-pill brand-pill--red"></div>
+    </div>
+    <p class="tagline">پونگ چهار جهته — آخرین نفری که زنده بمونه برنده‌ست</p>
+
+    <div class="card">
+      <label class="field">
+        <span>اسمت رو بنویس</span>
+        <input id="input-name" maxlength="14" placeholder="مثلاً: علی" autocomplete="off" />
+      </label>
+
+      <button id="btn-create" class="btn btn-primary">ساخت اتاق جدید</button>
+
+      <div class="divider"><span>یا</span></div>
+
+      <label class="field">
+        <span>کد اتاق دوستت</span>
+        <input id="input-code" maxlength="5" placeholder="مثلاً: A2B9K" autocomplete="off" style="text-transform:uppercase" />
+      </label>
+      <button id="btn-join" class="btn btn-secondary">ورود به اتاق</button>
+    </div>
+
+    <div class="minigame-teaser">
+      <p>حوصله‌ت سر رفته؟ یه دور بازی کن :)</p>
+      <div class="dino-wrap">
+        <canvas id="dino-canvas-menu" width="480" height="140"></canvas>
+        <button class="dino-start" id="dino-start-menu">▶ شروع بازی</button>
+      </div>
+      <small>بعد از شروع: Space یا کلیک برای پرش</small>
+    </div>
+  </div>
+
+  <div class="rgb-footer">BY 4TOON</div>
+</section>
+
+<!-- ===================== صفحه‌ی لابی اتاق ===================== -->
+<section id="screen-lobby" class="screen">
+  <div class="lobby-wrap">
+    <header class="lobby-header">
+      <div>
+        <span class="muted">کد اتاق</span>
+        <div class="room-code" id="room-code-display">------</div>
+      </div>
+      <button id="btn-copy-code" class="btn btn-ghost">کپی کد</button>
+      <button id="btn-leave-lobby" class="btn btn-ghost btn-danger">خروج</button>
+    </header>
+
+    <div class="lobby-grid">
+      <div class="players-panel">
+        <h3>بازیکن‌ها <span id="players-count" class="muted"></span></h3>
+        <div id="players-list" class="players-list"></div>
+        <button id="btn-start" class="btn btn-primary" disabled>شروع بازی</button>
+        <p class="hint">حداقل ۲ و حداکثر ۴ بازیکن — میزبان می‌تونه بازیکن‌ها رو اخراج کنه</p>
+      </div>
+
+      <div class="chat-panel">
+        <h3>گفتگو</h3>
+        <div id="chat-log" class="chat-log"></div>
+        <form id="chat-form" class="chat-form">
+          <input id="chat-input" maxlength="200" placeholder="پیامت رو بنویس..." autocomplete="off" />
+          <button type="submit" class="btn btn-primary btn-sm">ارسال</button>
+        </form>
+      </div>
+
+      <div class="minigame-panel">
+        <h3>تا شروع بازی، یه دور بپر!</h3>
+        <div class="dino-wrap">
+          <canvas id="dino-canvas-lobby" width="420" height="140"></canvas>
+          <button class="dino-start" id="dino-start-lobby">▶ شروع بازی</button>
+        </div>
+        <small>بعد از شروع: Space یا کلیک برای پرش</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== صفحه‌ی بازی ===================== -->
+<section id="screen-game" class="screen">
+  <div class="game-wrap">
+    <div class="hud" id="hud"></div>
+    <div class="arena-holder">
+      <canvas id="arena" width="800" height="800"></canvas>
+      <div id="pointer-hint" class="pointer-hint hidden">🖱️ حالت موس فعاله — برای خروج Ctrl رو دوباره بزن</div>
+    </div>
+    <p class="controls-hint">
+      کنترل: جهت‌نماها یا W/A/S/D — یا Ctrl رو بزن تا با موس کنترل کنی
+    </p>
+  </div>
+</section>
+
+<!-- ===================== صفحه‌ی پایان بازی ===================== -->
+<section id="screen-gameover" class="screen">
+  <div class="menu-wrap">
+    <h2 id="winner-title" class="winner-title">🏆</h2>
+    <div class="card">
+      <button id="btn-again" class="btn btn-primary">بازگشت به لابی</button>
+      <button id="btn-exit" class="btn btn-ghost">خروج به منو</button>
+    </div>
+  </div>
+</section>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
